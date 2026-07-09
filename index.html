@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>mike@arch: ~</title>
+
+  <!-- just one stylesheet, keeping it simple -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- this scanline overlay sits on top of everything to fake the CRT look -->
+  <div class="crt-overlay"></div>
+
+  <!-- the terminal "window" -->
+  <div class="terminal" id="terminal">
+
+    <!-- fake window top bar, purely decorative -->
+    <div class="terminal-bar">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+      <span class="bar-title">mike@arch: ~</span>
+    </div>
+
+    <!-- all boot text + command output gets appended in here -->
+    <div class="terminal-body" id="terminalBody">
+      <!-- populated by script.js -->
+    </div>
+
+    <!-- the real input line, hidden until the boot sequence finishes -->
+    <div class="input-line" id="inputLine" style="display: none;">
+      <span class="prompt" id="promptText">mike@arch:~$</span>
+      <input
+        type="text"
+        id="commandInput"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      >
+    </div>
+
+  </div>
+
+  <!-- little footer note, the kind of thing you'd leave on a personal project -->
+  <p class="footer-note">made with way too much love and not enough sleep</p>
+
+  <script src="script.js"></script>
+</body>
+</html>

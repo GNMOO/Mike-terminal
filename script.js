@@ -72,22 +72,22 @@ let currentFolder = null;
 
 const fortunes = [
   "You're allowed to have a good day for no reason.",
-  "Somewhere, your cat is judging you affectionately.",
+  "Somewhere, Slash is judging you.",
   "Small progress is still progress. Keep going.",
-  "You are someone's favorite notification.",
+  "You are someone's favorite notification :3.",
   "Rest counts as productivity today.",
-  "Your playlist has better taste than most people's entire personality.",
+  "I love your music taste.",
   "It's okay to not have it all figured out yet.",
   "Someone is proud of you and hasn't said it enough.",
-  "Drink some water. Yes, right now.",
+  "Drink some water not instant coffee. Yes, right now.",
   "You make ordinary days a little less ordinary.",
   "The best conversations happen at 2am for a reason.",
   "You are doing better than you think you are.",
-  "Slash approves of your life choices. Mostly.",
-  "This too shall pass, probably while a good song is playing."
+  "Slash approves of your life choices. Mostly, eh.",
+  "This too shall pass, probably while a good song is playing for a dramatic effect."
 ];
 
-// simple ascii cat, nothing crazy, just enough to be cute
+// simple ascii cat, nothing crazy, 
 const catArt =
 `  /\\_/\\
  ( o.o )
@@ -107,8 +107,7 @@ const bootLines = [
   "Starting NetworkManager...",
   "Checking filesystem...",
   "Mounting /home/mike/heart...",
-  "Starting slash-daemon (cat detected, purring at 60%)...",
-  "Loading My Chemical Romance discography into memory...",
+  "Starting slash-daemon...",
   "Almost there...",
   "Welcome, Mike."
 ];
@@ -119,7 +118,7 @@ function getBootTimestamp() {
   return now.toLocaleString();
 }
 
-// list of every command the user can actually run
+// list of every command you can actually run
 // (used for the help command and for tab-complete)
 const commandList = [
   "help", "about", "whoami", "fortune", "coffee", "love", "pwd",
@@ -304,7 +303,7 @@ function cmdAbout() {
 
 function cmdWhoami() {
   printLine("mike");
-  printLine("status: favorite human. certified cool Linux nerd.", "dim");
+  printLine("status: favorite human.", "dim");
 }
 
 function cmdFortune() {
@@ -325,7 +324,7 @@ async function cmdCoffee() {
     await wait(150);
   }
 
-  printLine("Coffee's ready. Extra strong, just how you like it. ☕");
+  printLine("Instant coffee's ready. Extra strong, just how you like it. ☕");
 }
 
 function cmdLove() {

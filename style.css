@@ -1,0 +1,237 @@
+/* ------------------------------------------
+   Mike's terminal - stylesheet
+   nothing fancy, just a green-on-black theme
+   with a little CRT glow because it felt right
+------------------------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #0a0a0a;
+  /* fallback font stack, monospace all the way */
+  font-family: 'Courier New', Courier, monospace;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* -----------------------------
+   the terminal window itself
+------------------------------ */
+.terminal {
+  width: 100%;
+  max-width: 800px;
+  height: 80vh;
+  max-height: 640px;
+  background-color: #000;
+  border-radius: 8px;
+  border: 1px solid #1c3d1c;
+  box-shadow: 0 0 25px rgba(51, 255, 51, 0.15), 0 0 60px rgba(0, 0, 0, 0.8) inset;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  /* fades in on page load so it doesn't just slam onto the screen */
+  animation: terminalFadeIn 0.8s ease-out;
+}
+
+@keyframes terminalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* fake window bar up top, like a mac/linux terminal title bar */
+.terminal-bar {
+  background-color: #111;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #1c3d1c;
+  flex-shrink: 0;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 12px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+.bar-title {
+  color: #777;
+  font-size: 13px;
+  margin: 0 auto;
+  /* nudging it back so it visually centers despite the dots on the left */
+  transform: translateX(-18px);
+}
+
+/* the scrolling body where all the text lives */
+.terminal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 18px;
+  color: #33ff33;
+  font-size: 15px;
+  line-height: 1.5;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.5);
+  scrollbar-width: thin;
+  scrollbar-color: #1c3d1c #000;
+}
+
+/* webkit scrollbar styling, mostly for chrome */
+.terminal-body::-webkit-scrollbar {
+  width: 8px;
+}
+.terminal-body::-webkit-scrollbar-track {
+  background: #000;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+  background-color: #1c3d1c;
+  border-radius: 4px;
+}
+
+/* every printed line fades in slightly, small touch but it helps */
+.term-line {
+  white-space: pre-wrap;
+  word-break: break-word;
+  animation: lineFadeIn 0.25s ease-in;
+  margin: 0;
+}
+
+@keyframes lineFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* used for dimmer / secondary text, like helper hints */
+.dim {
+  color: #1f8a1f;
+}
+
+/* used for errors or the rm -rf easter egg */
+.error-text {
+  color: #ff5f5f;
+  text-shadow: 0 0 4px rgba(255, 95, 95, 0.5);
+}
+
+/* used to highlight things like usernames or important words */
+.highlight {
+  color: #b6ffb6;
+}
+
+/* -----------------------------
+   the actual input line
+------------------------------ */
+.input-line {
+  display: flex;
+  align-items: center;
+  padding: 6px 18px 16px 18px;
+  flex-shrink: 0;
+}
+
+.prompt {
+  color: #33ff33;
+  margin-right: 8px;
+  white-space: nowrap;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.5);
+}
+
+#commandInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #b6ffb6;
+  font-family: inherit;
+  font-size: 15px;
+  caret-color: #33ff33;
+  text-shadow: 0 0 4px rgba(51, 255, 51, 0.4);
+}
+
+/* -----------------------------
+   CRT scanline overlay
+   sits on top of the whole page, doesn't block clicks
+------------------------------ */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0px,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.15) 3px
+  );
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+}
+
+/* subtle flicker so it doesn't feel static, very slight */
+@keyframes flicker {
+  0% { opacity: 0.45; }
+  50% { opacity: 0.55; }
+  100% { opacity: 0.45; }
+}
+.crt-overlay {
+  animation: flicker 6s infinite;
+}
+
+.footer-note {
+  color: #1f8a1f;
+  font-size: 12px;
+  margin-top: 14px;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+/* -----------------------------
+   mobile responsiveness
+------------------------------ */
+@media (max-width: 600px) {
+  .terminal {
+    height: 90vh;
+    border-radius: 4px;
+  }
+
+  .terminal-body, #commandInput, .prompt {
+    font-size: 13px;
+  }
+
+  body {
+    padding: 8px;
+  }
+
+  .bar-title {
+    font-size: 11px;
+  }
+}

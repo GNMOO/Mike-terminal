@@ -50,7 +50,7 @@ const fileSystem = {
     music: {
       name: "music",
       files: ["mcr_playlist.txt", "guitar_riffs.mp3"],
-      flavor: "mostly My Chemical Romance. no, this is not a phase."
+      flavor: "mostly My Chemical Romance. no, dad this is not a phase."
     },
     slash: {
       name: "slash",
@@ -65,10 +65,7 @@ const fileSystem = {
 let currentFolder = null;
 
 
-/* ----------------------------------------------------------
-   3. CONTENT: fortunes, ascii art, help text, etc
-   kept these near the top so they're easy to edit later
----------------------------------------------------------- */
+
 
 const fortunes = [
   "You're allowed to have a good day for no reason.",
@@ -127,11 +124,7 @@ const commandList = [
 ];
 
 
-/* ----------------------------------------------------------
-   4. OUTPUT HELPERS
-   basically everything the terminal "prints" goes through
-   these two functions
----------------------------------------------------------- */
+
 
 // prints a plain line of text
 function printLine(text, className) {
@@ -162,7 +155,7 @@ function wait(ms) {
 }
 
 // very small beep, only plays if soundEnabled is true
-// uses the Web Audio API so we don't need any sound files
+// uses the Web Audio API so we don't need any sound files, ugh
 function playBeep() {
   if (!soundEnabled) return;
 
@@ -213,8 +206,7 @@ async function runBootSequence() {
   commandInput.focus();
 }
 
-// typing animation for a single line of boot text
-// builds the line up character by character
+
 function typeLine(text) {
   return new Promise(resolve => {
     const line = document.createElement("p");
@@ -238,9 +230,6 @@ function typeLine(text) {
 }
 
 
-/* ----------------------------------------------------------
-   6. COMMAND HISTORY (up/down arrow support)
----------------------------------------------------------- */
 let historyList = [];
 let historyIndex = -1; // -1 means "not currently browsing history"
 
@@ -370,7 +359,7 @@ function cmdCd(args) {
     return;
   }
 
-  // strip a trailing slash if someone types "cd photos/"
+  
   const cleanTarget = target.replace(/\/$/, "");
   const folder = fileSystem.children[cleanTarget];
 
@@ -407,13 +396,13 @@ function cmdCat(args) {
 }
 
 async function cmdMcr() {
-  printLine("Now playing: My Chemical Romance");
+  printLine("Now playing: My Chemical Romance-I don't know how to add music, yet");
   await wait(300);
 
   const bars = "▁▂▃▄▅▆▇";
   let frames = 0;
 
-  // little fake equalizer, just random bar heights for a bit
+
   const eq = setInterval(() => {
     let row = "";
     for (let i = 0; i < 12; i++) {
@@ -511,11 +500,7 @@ function cmdClear() {
 }
 
 
-/* ----------------------------------------------------------
-   9. MAIN COMMAND ROUTER
-   takes the raw string typed by the user and figures out
-   what to actually do with it
----------------------------------------------------------- */
+/
 function handleCommand(rawInput) {
   const trimmed = rawInput.trim();
 
@@ -594,11 +579,7 @@ function handleCommand(rawInput) {
 }
 
 
-/* ----------------------------------------------------------
-   10. TAB AUTOCOMPLETE
-   pretty basic version - finds commands that start with
-   whatever's already typed
----------------------------------------------------------- */
+
 function handleTabComplete() {
   const current = commandInput.value.trim();
   if (current === "") return;
@@ -615,10 +596,7 @@ function handleTabComplete() {
 }
 
 
-/* ----------------------------------------------------------
-   11. EVENT LISTENERS
-   this is where keyboard input actually gets wired up
----------------------------------------------------------- */
+
 commandInput.addEventListener("keydown", function (event) {
 
   if (event.key === "Enter") {
